@@ -1,11 +1,11 @@
 class EmployeesController < ApplicationController
 
   def index
-    @employees = Unirest.get("#{ENV["API_URL"]}/employees").body
+    @employees = Employee.all
   end
 
   def show
-    @employee = Unirest.get("#{ENV["API_URL"]}/employees/#{params[:id]}.json").body
+    @employee = Employee.find(params[:id])
   end
 
   def new
@@ -33,7 +33,8 @@ class EmployeesController < ApplicationController
   end
 
   def destroy
-    @employee = Unirest.delete("#{ENV["API_URL"]}/delete/#{params[:id]}")
+    @employee = Employee.find(params[:id])
+    @employee.destroy
   end
 
 
